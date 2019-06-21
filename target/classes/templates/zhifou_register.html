@@ -1,0 +1,76 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/css/allPages.css">
+    <link rel="stylesheet" href="../static/css/register_page.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>知否——有问题上知否</title>
+</head>
+
+<div class="register-page">
+    <div class="register-page-form">
+        <div  style="display: block" id="login_state">
+            <div>
+                <div class="register-page-load-title">
+                    登陆知否
+                </div>
+                <div class="register-page-load-text">
+                    <span style="color: #484848">没有账号？</span>
+                    <div class="register-page-login" onclick="switch_state()">注册</div>
+                </div>
+            </div>
+            <form onsubmit="user_login();return false">
+                <div class="register-page-input-div">
+                    <input type="text" class="register-page-input" id="inputUserName_load" placeholder="用户名"/>
+                </div>
+                <div class="register-page-input-div">
+                    <input type="password" class="register-page-input" id="inputPassword_load" placeholder="密码">
+                </div>
+                <div class="register-page-input-div">
+                    <input type="submit" class="register-page-submit" value="登陆">
+                </div>
+            </form>
+        </div>
+        <div style="display: none" id="register_state">
+            <div>
+                <div class="register-page-load-title">
+                    注册知否
+                </div>
+                <div class="register-page-load-text">
+                    <span style="color: #484848">已有账号？</span>
+                    <div class="register-page-login" onclick="switch_state()">登陆</div>
+                </div>
+            </div>
+            <form onsubmit="user_register();return false">
+                <div class="register-page-input-div">
+                    <input type="text" class="register-page-input" id="inputUserName" placeholder="用户名"/>
+                </div>
+                <div class="register-page-input-div">
+                    <input type="text" class="register-page-input" id="inputNickName" placeholder="昵称" >
+                </div>
+                <div class="register-page-input-div">
+                    <input type="password" class="register-page-input" id="inputPassword" placeholder="密码">
+                </div>
+                <div class="register-page-input-div">
+                    <input type="password" class="register-page-input" id="inputRepeatPassword" placeholder="请再次输入密码" >
+                </div>
+                <div class="register-page-input-div">
+                    <input type="submit" class="register-page-submit"  value="注册">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script type="text/javascript" src="../static/script/register_page.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
