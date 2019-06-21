@@ -164,8 +164,9 @@
 }
 
 .page-card{
+    width: 680px;
     margin-top: 16px;
-    padding: 20px;
+    padding: 15px 20px;
     border-radius: 15px;
     background-color: #ffffff;
     box-shadow: 0 0 12px 0 rgba(0,0,0,0.15);
@@ -182,6 +183,16 @@
     color: #3f65c9;
 }
 
+.page-card-more{
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+}
+
+#pageCardMore:hover{
+    color: #1f8dfb !important;
+}
+
 .page-card-text{
     padding-top: 10px;
     padding-bottom: 10px;
@@ -191,15 +202,14 @@
 }
 
 .page-card-text-pickUp{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
     font-size: 14px;
     color: #5b5b5b;
     cursor: pointer;
 }
 
 .page-card-comments-content{
-    padding-top: 20px;
     padding-bottom: 20px;
 }
 
