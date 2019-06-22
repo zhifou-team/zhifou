@@ -1,5 +1,5 @@
 .register-page{
-    background-image: url("../img/background.png");
+    background-image: url("/img/background.png");
     background-position:center center;
     background-size:cover;
     background-repeat: no-repeat;
