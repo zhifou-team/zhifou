@@ -25,7 +25,7 @@ function getInformation(type) {
 
         notifyOperation("navBarChange","nav_recommend");
 
-        fetch(baseURL+'/answer').then(response =>{
+        fetch(baseURL+'/answer/extraction').then(response =>{
             if(response.ok){
                 console.log("请求问题列表成功！");
                 return response.json();
@@ -83,7 +83,7 @@ function cardOperation(type,id) {
             fetch(baseURL+"/answer/description",{
                 method:'post',
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                    'content-type': 'application/json'
                 },
                 body:"answerId="+answerId
             }).then(response=>{
@@ -123,12 +123,17 @@ function cardOperation(type,id) {
 
             function upQuestionLooking(answerId) {
 
+                let upStar = {
+                    answerId : id,
+                    state : "up"
+                };
+
                 fetch(baseURL+"/answer/star",{
                     method:'post',
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                        'content-type': 'application/json'
                     },
-                    body:("answerId="+answerId)&("state=up")
+                    body:JSON.stringify(upStar)
                 }).then(response=>{
                     if (response.ok){
                         console.log("在看成功！");
@@ -149,12 +154,17 @@ function cardOperation(type,id) {
 
             function downQuestionLooking(answerId) {
 
+                let downStar = {
+                    answerId : id,
+                    state : "down"
+                };
+
                 fetch(baseURL+"/answer/star",{
                     method:'post',
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                        'content-type': 'application/json'
                     },
-                    body:("answerId="+answerId)&("state=down")
+                    body:JSON.stringify(downStar)
                 }).then(response=>{
                     if (response.ok){
                         console.log("取消在看成功！");
