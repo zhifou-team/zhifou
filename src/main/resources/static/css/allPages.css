@@ -1,6 +1,16 @@
 body{
     font-family: "first font", serif !important;
     background-color: #ffffff !important;
+    overflow-y:scroll !important;
+
+    /*解决bootstrap的弹窗出现之后滚动条消失，页面横移问题*/
+    padding-right: 0!important;
+}
+
+nav{
+    /*解决bootstrap的弹窗出现之后滚动条消失，页面横移问题*/
+    padding: 0!important;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.15)
 }
 
 @font-face {

@@ -1,4 +1,4 @@
-const URL = 'http://localhost:8080/register/load';
+const baseURL = 'http://localhost:8080/user';
 
 function user_register() {
     let userName = document.getElementById('inputUserName').value;
@@ -19,7 +19,7 @@ function user_register() {
     }else if(password!==repeatPassword){
         alert("两次输入密码不一致！");
     }else{
-        fetch(URL,{
+        fetch(baseURL+"/register/load",{
             method: 'POST',
             headers:{
                 'content-type': 'application/json'
@@ -33,7 +33,7 @@ function user_register() {
         }).then(data => {
             if(data === "success"){
                 alert("注册成功！");
-                location.href="zhifou_main.html";
+                location.href="register";
             }else if(data === "failed"){
                 alert("该用户命已存在！注册失败");
                 return false;
@@ -71,7 +71,7 @@ function user_login() {
         alert("请输入完整!");
         //需要另外对字符串键入匹配
     }else{
-        fetch(URL,{
+        fetch(baseURL+"/login",{
             method: 'POST',
             headers:{
                 'content-type': 'application/json'
@@ -85,7 +85,7 @@ function user_login() {
         }).then(data => {
             if(data === "success"){
                 alert("登陆成功！");
-                location.href="zhifou_main.html";
+                location.href="main";
             }else if(data === "failed"){
                 alert("该用户命不存在或者密码输入错误！");
                 return false;

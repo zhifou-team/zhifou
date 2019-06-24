@@ -13,12 +13,9 @@
     <title>知否——有问题上知否</title>
 </head>
 <body onload="getInformation('firstLoad')">
-<!--解决bootstrap的弹窗出现之后滚动条消失，页面横移问题-->
 <div>
-    <div class="page-container-fixed-shadow"></div>
-    <div class="page-container-header">
-        <!--    fixed下的flex布局和absolute定位失效问题，在父级加固定宽度-->
-        <div class="page-container-fixed" style="width: 960px">
+    <nav class="navbar fixed-top">
+        <div class="page-container-header">
             <div class="d-flex justify-content-between">
                 <div>
                     <div class="page-header-logo">
@@ -36,31 +33,36 @@
                             <span>专栏</span>
                         </a>
                         <a href="zhifou_more.html" class="page-header-nav">
-                            <span>更多</span>
+                            <span>更多 </span><i class="fa fa-angle-down" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
                 <div>
-                    <div class="page-header-nav-button" onclick="displayStyle('searchPart','pageHeaderSearch')" id="pageHeaderSearch"
-                         style="display: inline-block;color: #8590a6;border-top: 4px solid transparent;
-                     border-left: 1px solid transparent;border-right: 1px solid transparent;">
+                    <div class="page-header-nav-button" onclick="displayWholeSearch()" id="pageHeaderSearch"
+                         style="color: #8590a6;border-top: 4px solid transparent;
+                                border-left: 1px solid transparent;border-right: 1px solid transparent;">
                         <i class="fas fa-search" style="font-size: 16px"></i>
                         <span>搜索</span>
                     </div>
                     <button class="page-header-nav" type="button" data-toggle="modal" data-target="#questionModal"
-                            style="display: inline-block;outline: none;border-bottom: none">
+                            style="outline: none;border-bottom: none">
                         <i class="fas fa-question" style="font-size: 16px"></i>
                         <span>提问</span>
                     </button>
+                    <div class="page-header-nav-button"
+                         style="color: #8590a6;border-top: 4px solid transparent;
+                     border-left: 1px solid transparent;border-right: 1px solid transparent;">
+                        <i class="fas fa-moon" style="font-size: 20px"></i>
+                    </div>
                     <div class="page-header-nav-button" onclick="displayStyle('personalInfo','pageHeaderInfo')" id="pageHeaderInfo"
-                         style="display: inline-block;color: #8590a6;border-top: 4px solid transparent;
+                         style="color: #8590a6;border-top: 4px solid transparent;
                      border-left: 1px solid transparent;border-right: 1px solid transparent;">
                         <i class="fas fa-user-circle" style="font-size: 20px"></i>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 </div>
 
 <!--导航栏下方主题内容-->
@@ -70,7 +72,7 @@
     <div class="d-flex">
         <div class="page-card-columns" >
             <div>
-                <button class="page-header-nav-under" onclick="getInformation('firstLoad')" style="color: #1f8dfb;border: 1px solid #1f8dfb;outline: none;" id="nav_recommend">
+                <button class="page-header-nav-press" onclick="getInformation('firstLoad')" style="outline: none" id="nav_recommend">
                     <span>首页推荐</span>
                 </button>
                 <button class="page-header-nav-under" onclick="navOperation('displayMyFocus',null)" style="outline: none" id="nav_focus">
@@ -150,16 +152,16 @@
 <!--遗留问题；宽度小于960px时候更改自适应-->
 <div class="page-header-search" style="display: none" id="searchPart">
     <div style="position: absolute;top: 62px">
-        <div style="position: fixed;width: 930px">
+        <div style="position: fixed;width: 924px">
             <div class="d-flex justify-content-end">
                 <div style="position: absolute;padding-top: 10px;margin-top: -5px">
                     <div class="page-search">
                         <div class="d-flex align-items-center">
                             <div class="flex-fill">
-                                <input class="page-search-input" type="text" placeholder="请输入你要查找的内容">
+                                <input class="page-search-input" type="text" placeholder="请输入你要查找的内容" maxlength="20" id="page_search_input">
                             </div>
                             <div>
-                                <input class="page-search-button" type="button" value="搜索" onclick="pageSearch()">
+                                <input class="page-search-button" type="button" value="搜索" onclick="navOperation('pageSearch',null)">
                             </div>
                         </div>
                     </div>
@@ -225,6 +227,7 @@
 
 <!--    使用fontawesome-->
 <script src="/script/fontawesome.js"></script>
+<script type="text/javascript" src="/script/public.js"></script>
 <script type="text/javascript" src="/script/main_page.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
