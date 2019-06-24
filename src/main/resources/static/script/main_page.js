@@ -117,32 +117,62 @@ function cardOperation(type,id) {
         }
         pickUpAnswerDescription(id);
 
-    } else if(type === "addQuestionLooking"){
+    } else if(type === ("upQuestionLooking" || "downQuestionLooking")){
 
-        function addQuestionLooking(answerId) {
-            //
-            fetch(baseURL+"/answer/star",{
-                method:'post',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
-                },
-                body:["answerId="+answerId,
-                    "state"+"up"]
-            }).then(response=>{
-                if (response.ok){
-                    console.log("在看成功！");
-                    return response.json();
-                }
-            }).then(res=>{
-                let star = document.getElementById("haveLooked"+answerId);
-                star.innerText = "已在看"+res.data;
-                displayThis("i-block","lookQuestion"+answerId);
-                displayThis("i-block","haveLooked"+answerId);
-            }).catch(function(e){
-                alert("error:" + e);
-            });
+        if (type.substring(0,1) === "up"){
+
+            function upQuestionLooking(answerId) {
+
+                fetch(baseURL+"/answer/star",{
+                    method:'post',
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                    },
+                    body:("answerId="+answerId)&("state=up")
+                }).then(response=>{
+                    if (response.ok){
+                        console.log("在看成功！");
+                        return response.json();
+                    }
+                }).then(res=>{
+                    let star = document.getElementById("haveLooked"+answerId);
+                    star.innerText = "已在看"+res.data;
+                    displayThis("block","upQuestionLooking"+answerId);
+                    displayThis("block","downQuestionLooking"+answerId);
+                }).catch(function(e){
+                    alert("error:" + e);
+                });
+            }
+            upQuestionLooking(id);
+
+        }else {
+
+            function downQuestionLooking(answerId) {
+
+                fetch(baseURL+"/answer/star",{
+                    method:'post',
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                    },
+                    body:("answerId="+answerId)&("state=down")
+                }).then(response=>{
+                    if (response.ok){
+                        console.log("取消在看成功！");
+                        return response.json();
+                    }
+                }).then(res=>{
+                    let star = document.getElementById("isLooking"+answerId);
+                    star.innerText = "已在看"+res.data;
+                    displayThis("i-block","downQuestionLooking"+answerId);
+                    displayThis("i-block","upQuestionLooking"+answerId);
+                }).catch(function(e){
+                    alert("error:" + e);
+                });
+            }
+            downQuestionLooking(id);
         }
-        addQuestionLooking(id);
+
+
 
     }else if(type === "displayComments"){
 

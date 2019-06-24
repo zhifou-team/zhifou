@@ -29,12 +29,17 @@ function displayQuestionsToHTML(questions) {
                 </div>
                 
                 <div class="page-card-bottom">
-                    <div class="page-card-bottom-reader" onclick="cardOperation('addQuestionLooking',${data.answerId})">
+                    <div class="page-card-bottom-reader" style="display: inline-block" onclick="cardOperation('upQuestionLooking',${data.answerId})" id="upQuestionLooking${data.answerId}">
                         <div class="d-inline-block align-top">
                             <i class="fas fa-book-reader"></i>
                         </div>
-                        <span style="display: inline-block" id="lookQuestion${data.answerId}">在看 ${data.answerStar}</span>
-                        <span style="display: none" id="haveLooked${data.answerId}">已在看 ${data.answerStar}</span>
+                        <span id="isLooking${data.answerId}">在看 ${data.answerStar}</span>
+                    </div>
+                    <div class="page-card-bottom-reader" style="display: none" onclick="cardOperation('downQuestionLooking',${data.answerId})" id="downQuestionLooking${data.answerId}">
+                        <div class="d-inline-block align-top">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <span id="haveLooked${data.answerId}">已在看 ${data.answerStar}</span>
                     </div>
                     <div class="page-card-bottom-item" onclick="cardOperation('displayComments',${data.answerId})">
                         <div class="d-inline-block align-top">
