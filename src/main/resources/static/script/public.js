@@ -8,21 +8,21 @@ function displayQuestionsToHTML(questions) {
     questions.forEach(data =>{
         htmlQuestionsString += `
             <div class="page-card">
-                <div class="page-card-title">
-                    <a href=""><span>${data.questionTitle}</span></a>
+                <div class="page-card-title" onclick="window.location.href='zhifou_question.html?answerId='+${data.answerId}">
+                    <span>${data.questionTitle}</span>
                 </div>
                 <div class="page-card-text">
                     <div style="display: block" id="pageCardExtraction${data.answerId}">
-                        <span>${data.answerExtraction}</span>
+                        <span onclick="window.location.href='zhifou_question.html?'+${data.answerId}">${data.answerExtraction}</span>
                         <a onclick="cardOperation('displayAnswer',${data.answerId})" class="page-card-text-button">
-                        阅读全文 <i class="fa fa-angle-down" aria-hidden="true"></i> 
+                        阅读全文 <span class="iconfont icon-xia"></span>
                         </a>
                     </div>
                     <div class="page-card-text-pickUp" style="display: none" id="pageCardTextPickUp${data.answerId}">
                         <span id="pageCardDescription${data.answerId}"></span>
                         <div style="padding-top: 10px">
                             <a onclick="cardOperation('pickUpAnswer',${data.answerId})" class="page-card-text-button">
-                                收起全文 <i class="fa fa-angle-up" aria-hidden="true"></i>
+                                收起全文 <span class="iconfont icon-shang"></span>
                             </a>
                         </div>
                     </div>
@@ -30,37 +30,47 @@ function displayQuestionsToHTML(questions) {
                 
                 <div class="page-card-bottom">
                     <div class="page-card-bottom-reader" style="display: inline-block" onclick="cardOperation('upQuestionLooking',${data.answerId})" id="upQuestionLooking${data.answerId}">
-                        <div class="d-inline-block align-top">
-                            <i class="fas fa-book-reader"></i>
+                        <div class="d-inline-block align-middle">
+                            <span class="iconfont icon-reading" style="font-size: 18px;line-height: 22px"></span>
                         </div>
-                        <span id="isLooking${data.answerId}">在看 ${data.answerStar}</span>
+                        <div class="d-inline-block align-middle">
+                            <span>在看&nbsp</span><span id="isLooking${data.answerId}">${data.answerStar}</span>
+                        </div>
                     </div>
                     <div class="page-card-bottom-reader" style="display: none" onclick="cardOperation('downQuestionLooking',${data.answerId})" id="downQuestionLooking${data.answerId}">
-                        <div class="d-inline-block align-top">
-                            <i class="fas fa-book-reader"></i>
+                        <div class="d-inline-block align-middle">
+                            <span class="iconfont icon-reading" style="font-size: 18px;line-height: 22px"></span>
                         </div>
-                        <span id="haveLooked${data.answerId}">已在看 ${data.answerStar}</span>
+                        <div class="d-inline-block align-middle">
+                            <span>已在看</span><span id="haveLooked${data.answerId}">${data.answerStar}</span>
+                        </div>
                     </div>
                     <div class="page-card-bottom-item" onclick="cardOperation('displayComments',${data.answerId})">
-                        <div class="d-inline-block align-top">
-                            <i class="far fa-comment-dots"></i>
+                        <div class="d-inline-block align-middle">
+                            <span class="iconfont icon-pinglun" style="line-height: 16px"></span>
                         </div>
-                        <span style="display: inline-block" id="downComment${data.answerId}">${data.comment} 条评论</span>
-                        <span style="display: none" id="UpComment${data.answerId}">收起评论</span>
+                        <div class="d-inline-block align-middle">
+                            <span style="display: inline-block" id="downComment${data.answerId}">${data.comment} 条评论</span>
+                            <span style="display: none" id="UpComment${data.answerId}">收起评论</span>
+                        </div>
                     </div>
                     <div class="page-card-bottom-item" onclick="cardOperation('shareQuestion',${data.answerId})">
-                        <div class="d-inline-block align-top">
-                            <i class="far fa-share-square"></i>
+                        <div class="d-inline-block align-middle">
+                            <span class="iconfont icon-fenxiang" style="font-size: 18px;line-height: 18px"></span>
                         </div>
-                        <span style="display: inline-block" id="shareQuestion${data.answerId}">分享</span>
-                        <span style="display: none" id="haveShared${data.answerId}">已分享</span>
+                        <div class="d-inline-block align-middle">
+                            <span style="display: inline-block" id="shareQuestion${data.answerId}">分享</span>
+                            <span style="display: none" id="haveShared${data.answerId}">已分享</span>
+                        </div>
                     </div>
                     <div class="page-card-bottom-item" onclick="cardOperation('storeQuestion',${data.answerId})">
-                        <div class="d-inline-block align-top">
-                            <i class="far fa-star"></i>
+                        <div class="d-inline-block align-middle">
+                            <span class="iconfont icon-shoucang" style="font-size: 18px;line-height: 18px"></span>
                         </div>
-                        <span style="display: inline-block" id="storeQuestion${data.answerId}">收藏</span>
-                        <span style="display: none" id="haveStored${data.answerId}">已收藏</span>
+                        <div class="d-inline-block align-middle">
+                            <span style="display: inline-block" id="storeQuestion${data.answerId}">收藏</span>
+                            <span style="display: none" id="haveStored${data.answerId}">已收藏</span>
+                        </div>
                     </div>
                 </div>
                 <div class="page-card-comments-content" style="display: none" id="pageCardComments${data.answerId}">
@@ -77,6 +87,147 @@ function displayQuestionsToHTML(questions) {
     cardColumns.className = "page-cards-container";
     cardColumns.innerHTML = htmlQuestionsString;
     insertDiv.parentNode.insertBefore(cardColumns,insertDiv);
+}
+
+//将对card-text的操作封装起来
+function cardOperation(type,id) {
+    if (type === "displayAnswer"){
+
+        function displayAnswerDescription(answerId) {
+
+            fetch(baseURL+"/answer/description",{
+                method:'post',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                },
+                body:"answerId="+answerId
+            }).then(response=>{
+                if (response.ok){
+                    console.log("阅读全文请求成功！");
+                    return response.json();
+                }
+            }).then(res=>{
+                //后端传来的数据是data后面一个string
+                let pageCardDescription = document.getElementById("pageCardDescription"+answerId);
+                pageCardDescription.innerHTML = res.data;
+            }).catch(function(e){
+                alert("error:" + e);
+            });
+
+            //隐藏“摘要部分”
+            displayThis("block","pageCardExtraction"+answerId);
+            //出现“全文部分”
+            displayThis("block","pageCardTextPickUp"+answerId);
+        }
+        displayAnswerDescription(id);
+
+    } else if(type === "pickUpAnswer"){
+
+        function pickUpAnswerDescription(answerId) {
+            //隐藏“全文部分”
+            displayThis("block","pageCardTextPickUp"+answerId);
+            //出现“摘要部分”
+            displayThis("block","pageCardExtraction"+answerId);
+
+        }
+        pickUpAnswerDescription(id);
+
+    } else if(type === ("upQuestionLooking" || "downQuestionLooking")){
+
+        if (type.substring(0,2) === "up"){
+
+            function upQuestionLooking(answerId) {
+
+                let upStar = {
+                    answerId : id,
+                    state : "up"
+                };
+
+                fetch(baseURL+"/answer/star",{
+                    method:'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body:JSON.stringify(upStar)
+                }).then(response=>{
+                    if (response.ok){
+                        console.log("在看成功！");
+                        return response.json();
+                    }
+                }).then(res=>{
+                    let star = document.getElementById("haveLooked"+answerId);
+                    star.innerText = res.data;
+                    displayThis("i-block","upQuestionLooking"+answerId);
+                    displayThis("i-block","downQuestionLooking"+answerId);
+                }).catch(function(e){
+                    alert("error:" + e);
+                });
+            }
+            upQuestionLooking(id);
+
+        }else {
+
+            function downQuestionLooking(answerId) {
+
+                let downStar = {
+                    answerId : id,
+                    state : "down"
+                };
+
+                fetch(baseURL+"/answer/star",{
+                    method:'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body:JSON.stringify(downStar)
+                }).then(response=>{
+                    if (response.ok){
+                        console.log("取消在看成功！");
+                        return response.json();
+                    }
+                }).then(res=>{
+                    let star = document.getElementById("isLooking"+answerId);
+                    star.innerText = res.data;
+                    displayThis("i-block","downQuestionLooking"+answerId);
+                    displayThis("i-block","upQuestionLooking"+answerId);
+                }).catch(function(e){
+                    alert("error:" + e);
+                });
+            }
+            downQuestionLooking(id);
+        }
+
+
+
+    }else if(type === "displayComments"){
+
+        function displayComments(answerId){
+            displayThis("block","pageCardComments"+answerId);
+            //隐藏评论数量，显示“收起评论"
+            displayThis("i-block","downComment"+answerId);
+            displayThis("i-block","UpComment"+answerId);
+        }
+        displayComments(id);
+
+    }else if(type === "shareQuestion"){
+
+        function shareQuestion(answerId) {
+            //隐藏分享，显示“已分享"
+            displayThis("i-block","shareQuestion"+answerId);
+            displayThis("i-block","haveShared"+answerId);
+        }
+        shareQuestion(id);
+
+    }else if(type === "storeQuestion"){
+
+        function storeQuestion(answerId) {
+            //隐藏收藏，显示“已收藏”
+            displayThis("i-block","storeQuestion"+answerId);
+            displayThis("i-block","haveStored"+answerId);
+        }
+        storeQuestion(id);
+
+    }
 }
 
 function displayThis(type,id) {
@@ -104,8 +255,53 @@ function displayThis(type,id) {
 
 }
 
-function displayWholeSearch() {
+function pageSearch() {
 
+    //搜索模块
+    let searchWord = document.getElementById("page_search_input").value;
+    if (searchWord !== ""){
+
+        fetch(baseURL+'/search',{
+            method:'post',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+            },
+            body:"searchWord="+searchWord
+        }).then(response=>{
+            if (response.ok){
+                console.log("搜索请求成功！");
+                return response.json();
+            }
+        }).then(res=>{
+
+            //将左侧移除
+            function removeCards(){
+                let cards = document.querySelectorAll(".page-cards-container");
+                if (cards.length !== 0){
+                    for (let i =0; i<cards.length ; i++){
+                        cards[i].remove();
+                    }
+                    // displayThis("block","pageCardMore");
+                }
+            }
+            removeCards();
+
+            let searchList;
+            searchList = res.data;
+            displayQuestionsToHTML(searchList);
+            insertReadMore();
+
+        }).catch(function(e){
+            alert("error:" + e);
+        });
+
+    } else {
+        alert("请输入你想要查找的内容：")
+    }
+
+}
+
+function displayWholeSearch() {
 
     function displaySearchStyle(){
         let searchPart = document.getElementById("searchPart");
@@ -130,7 +326,7 @@ function displayWholeSearch() {
     displaySearchStyle();
 }
 
-function displayStyle(hidePart,moseoverPart) {
+function displayUser(hidePart,moseoverPart) {
     let searchPart = document.getElementById(hidePart);
     let hoverStyle = document.getElementById(moseoverPart);
 

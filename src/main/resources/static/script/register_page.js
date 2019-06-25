@@ -84,7 +84,6 @@ function user_login() {
             }
         }).then(data => {
             if(data === "success"){
-                alert("登陆成功！");
                 location.href="main";
             }else if(data === "failed"){
                 alert("该用户命不存在或者密码输入错误！");
