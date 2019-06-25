@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:8080/user';
+let registerURL = 'http://localhost:8080/user';
 
 function user_register() {
     let userName = document.getElementById('inputUserName').value;
@@ -8,7 +8,7 @@ function user_register() {
 
     let register_info = {
         userUserName : userName,
-        userNickName : nickName,
+        userNickname : nickName,
         userPassword : password
     };
 
@@ -19,7 +19,7 @@ function user_register() {
     }else if(password!==repeatPassword){
         alert("两次输入密码不一致！");
     }else{
-        fetch(baseURL+"/register/load",{
+        fetch(registerURL+"/register/load",{
             method: 'POST',
             headers:{
                 'content-type': 'application/json'
@@ -71,7 +71,7 @@ function user_login() {
         alert("请输入完整!");
         //需要另外对字符串键入匹配
     }else{
-        fetch(baseURL+"/login",{
+        fetch(registerURL+"/login",{
             method: 'POST',
             headers:{
                 'content-type': 'application/json'

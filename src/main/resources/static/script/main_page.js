@@ -1,4 +1,3 @@
-const baseURL = "http://localhost:8080";
 
 function insertReadMore() {
     //将查看更多推荐插入最后一个card前面
@@ -25,7 +24,7 @@ function getInformation(type) {
 
         notifyOperation("navBarChange","nav_recommend");
 
-        fetch(baseURL+'/answer/extraction').then(response =>{
+        fetch(baseURL+'/answer').then(response =>{
             if(response.ok){
                 console.log("请求问题列表成功！");
                 return response.json();

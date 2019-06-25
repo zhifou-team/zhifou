@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:8080";
+let baseURL = "http://localhost:8080";
 
 //用于公共复用
 function displayQuestionsToHTML(questions) {
@@ -133,7 +133,7 @@ function cardOperation(type,id) {
         }
         pickUpAnswerDescription(id);
 
-    } else if(type === ("upQuestionLooking" || "downQuestionLooking")){
+    } else if((type === "upQuestionLooking") || (type ==="downQuestionLooking")){
 
         if (type.substring(0,2) === "up"){
 

@@ -10,13 +10,15 @@ body{
 nav{
     /*解决bootstrap的弹窗出现之后滚动条消失，页面横移问题*/
     padding: 0!important;
+    background-color: #ffffff;
+    width: 100%;
     box-shadow: 0 0 12px 0 rgba(0,0,0,0.15)
 }
 
 @font-face {
     font-family: first font;
     /*src: url("../font/PingFang Medium.ttf");*/
-    src: url("/font/PingFang Medium.ttf");
+    src: url("../font/PingFang Medium.ttf");
 }
 
 a{
@@ -33,11 +35,11 @@ a{
 }
 
 .page-container{
-    /*position: fixed;*/
     margin: 0 auto;
     max-width: 960px;
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 62px
 }
 
 .page-header-logo{

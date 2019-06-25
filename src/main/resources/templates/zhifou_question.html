@@ -4,6 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="referrer" content="no-referrer"/>
 
     <!--    使用iconfont-->
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1258904_bf6001s43ig.css">
@@ -14,7 +15,7 @@
 
     <title>知否——有问题上知否</title>
 </head>
-<body onload="getAnswers()">
+<body onload="getAnswers('firstLoad')">
 <div>
     <nav class="navbar fixed-top">
         <div class="page-container-header">
@@ -124,101 +125,103 @@
 </div>
 
 <!--导航栏下方主题内容-->
-<!--card-columns-->
-<!--这里用bootstrap4的d-flex 和flex-fill解决左边div定宽度，右边div自适应扩充宽度问题-->
-<div class="page-container" style="padding-top: 82px">
-    <div class="d-flex">
-        <div class="page-card-columns" >
-            <div class="page-question">
-                这是问题页面
-            </div>
-            <div>
-                <div class="useToInsert" style="width: 680px"></div>
-            </div>
-        </div>
-
-        <!--        遗留问题右边宽度，自适应问题, flex-fill无效了-->
-        <div class="page-right-part" id="pageRightPart" style="display: none">
-            <div style="position: fixed;width: 230px">
-                <div style="text-align: center">
-                    <div class="page-header-nav-right">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-shuxie" style="font-size: 22px;line-height: 22px"></span>
-                        </div>
-                        <div class="d-inline-block align-middle" style="font-weight: bold">
-                            <span>写文章</span>
-                        </div>
-
+<div style="padding-top: 62px">
+    <div class="question-container">
+        <div class="d-flex justify-content-between">
+            <div class="question-info">
+                <div>
+                    <div class="question-title">
+                        <span id="question-title"></span>
                     </div>
-                    <div class="page-header-nav-right">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-dengpao" style="font-size: 22px;line-height: 22px"></span>
+                    <div class="question-description">
+                        <span id="question-description"></span>
+                    </div>
+                    <div class="question-info-bottom">
+                        <div class="question-info-button-focus" style="outline: none">
+                            <span>关注问题</span>
                         </div>
-                        <div class="d-inline-block align-middle" style="font-weight: bold">
-                            <span>写想法</span>
+                        <div class="question-info-button-answer" style="outline: none">
+                            <span>回答问题</span>
                         </div>
                     </div>
                 </div>
-                <div class="page-right-card-info">
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-tongzhi" style="line-height: 16px"></span>
-                        </div>
-                        <span style="padding-left: 5px">查看全部通知</span>
+                <div>
+                    <span>关注者：</span><span id="question-followers"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="question-columns">
+        <div>
+            <div class="answer-container">
+
+            </div>
+            <div id="answerInsert" style="width: 680px"></div>
+        </div>
+        <div id="right-columns" style="width: 230px;display: none">
+            <div class="question-right-author">
+                关于作者
+            </div>
+            <div class="question-right-info">
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-tongzhi" style="line-height: 16px"></span>
                     </div>
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-xiaoxi" style="line-height: 16px"></span>
-                        </div>
-                        <span style="padding-left: 5px">我的私信</span>
+                    <span style="padding-left: 5px">查看全部通知</span>
+                </div>
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-xiaoxi" style="line-height: 16px"></span>
                     </div>
-                    <hr>
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-reading" style="font-size: 18px;line-height: 18px"></span>
-                        </div>
-                        <span style="padding-left: 5px">我的在看</span>
+                    <span style="padding-left: 5px">我的私信</span>
+                </div>
+                <hr>
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-reading" style="font-size: 18px;line-height: 18px"></span>
                     </div>
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-shoucang" style="font-size: 18px;line-height: 18px"></span>
-                        </div>
-                        <div class="d-inline-block align-middle">
-                            <span style="padding-left: 5px">我收藏的问题</span>
-                        </div>
+                    <span style="padding-left: 5px">我的在看</span>
+                </div>
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-shoucang" style="font-size: 18px;line-height: 18px"></span>
                     </div>
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-fenxiang" style="font-size: 18px;line-height: 18px"></span>
-                        </div>
-                        <div class="d-inline-block align-middle">
-                            <span style="padding-left: 5px">我的分享</span>
-                        </div>
+                    <div class="d-inline-block align-middle">
+                        <span style="padding-left: 5px">我收藏的问题</span>
                     </div>
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-pinglun" style="line-height: 16px"></span>
-                        </div>
-                        <div class="d-inline-block align-middle">
-                            <span style="padding-left: 5px">我的评论</span>
-                        </div>
+                </div>
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-fenxiang" style="font-size: 18px;line-height: 18px"></span>
                     </div>
-                    <hr>
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-lishijilu" style="line-height: 16px"></span>
-                        </div>
-                        <div class="d-inline-block align-middle">
-                            <span style="padding-left: 5px">我的足迹</span>
-                        </div>
+                    <div class="d-inline-block align-middle">
+                        <span style="padding-left: 5px">我的分享</span>
                     </div>
-                    <div class="page-right-card-info-items">
-                        <div class="d-inline-block align-middle">
-                            <span class="iconfont icon-sousuo" style="line-height: 16px"></span>
-                        </div>
-                        <div class="d-inline-block align-middle">
-                            <span style="padding-left: 5px">我的搜索历史</span>
-                        </div>
+                </div>
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-pinglun" style="line-height: 16px"></span>
+                    </div>
+                    <div class="d-inline-block align-middle">
+                        <span style="padding-left: 5px">我的评论</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-lishijilu" style="line-height: 16px"></span>
+                    </div>
+                    <div class="d-inline-block align-middle">
+                        <span style="padding-left: 5px">我的足迹</span>
+                    </div>
+                </div>
+                <div class="page-right-card-info-items">
+                    <div class="d-inline-block align-middle">
+                        <span class="iconfont icon-sousuo" style="line-height: 16px"></span>
+                    </div>
+                    <div class="d-inline-block align-middle">
+                        <span style="padding-left: 5px">我的搜索历史</span>
                     </div>
                 </div>
             </div>
