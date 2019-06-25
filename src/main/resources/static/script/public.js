@@ -1,3 +1,4 @@
+const baseURL = "http://localhost:8080";
 
 //用于公共复用
 function displayQuestionsToHTML(questions) {
