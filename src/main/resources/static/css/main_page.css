@@ -17,6 +17,12 @@
     box-shadow: 0 0 12px 0 rgba(0,0,0,0.15);
 }
 
+.page-card-more{
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+}
+
 .page-card-title{
     font-size: 18px;
     font-weight: bold;
@@ -26,12 +32,6 @@
 
 .page-card-title:hover{
     color: #3f65c9;
-}
-
-.page-card-more{
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
 }
 
 #pageCardMore:hover{

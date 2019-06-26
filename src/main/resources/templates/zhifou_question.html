@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-between">
                 <div>
                     <div class="page-header-logo">
-                        <img src="/img/zhifou.png" width="140" height="40" alt="">
+                        <img src="../static/img/zhifou.png" width="140" height="40" alt="">
                     </div>
 
                     <div class="d-inline-block" style="vertical-align: top">
@@ -126,10 +126,10 @@
 
 <!--导航栏下方主题内容-->
 <div style="padding-top: 62px">
-    <div class="question-container">
+    <div class="container-fluid question-container" id="question-container" style="display: none">
         <div class="d-flex justify-content-between">
             <div class="question-info">
-                <div>
+                <div style="width: 645px">
                     <div class="question-title">
                         <span id="question-title"></span>
                     </div>
@@ -143,25 +143,72 @@
                         <div class="question-info-button-answer" style="outline: none">
                             <span>回答问题</span>
                         </div>
+                        <div class="page-card-bottom-item" onclick="cardOperation('shareQuestion',${data.answerId})">
+                            <div class="d-inline-block align-middle">
+                                <span class="iconfont icon-fenxiang" style="font-size: 18px;line-height: 18px"></span>
+                            </div>
+                            <div class="d-inline-block align-middle">
+                                <span style="display: inline-block" id="shareQuestion${data.answerId}">分享</span>
+                                <span style="display: none" id="haveShared${data.answerId}">已分享</span>
+                            </div>
+                        </div>
+                        <div class="page-card-bottom-item" onclick="cardOperation('storeQuestion',${data.answerId})">
+                            <div class="d-inline-block align-middle">
+                                <span class="iconfont icon-shoucang" style="font-size: 18px;line-height: 18px"></span>
+                            </div>
+                            <div class="d-inline-block align-middle">
+                                <span style="display: inline-block" id="storeQuestion${data.answerId}">收藏</span>
+                                <span style="display: none" id="haveStored${data.answerId}">已收藏</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div>
-                    <span>关注者：</span><span id="question-followers"></span>
+                    <div class="question-num-info" style="border-right: 1px solid #dddddd">
+                        <div>
+                            <span class="question-follower">关注者</span>
+                        </div>
+                        <div>
+                            <span class="question-follower-num" id="question-followers"></span>
+                        </div>
+                    </div>
+                    <div class="question-num-info">
+                        <div>
+                            <span class="question-follower">浏览量</span>
+                        </div>
+                        <div>
+                            <span class="question-follower-num" id="question-browser">123,111</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
         </div>
     </div>
     <div class="question-columns">
-        <div>
-            <div class="answer-container">
-
-            </div>
+        <div id="question-columns">
             <div id="answerInsert" style="width: 680px"></div>
         </div>
         <div id="right-columns" style="width: 230px;display: none">
             <div class="question-right-author">
-                关于作者
+                <div class="about-author">
+                    <span style="font-size: 14px">关于作者</span>
+                </div>
+                <hr>
+                <div class="about-author-info" >
+                    <div style="display: table-cell;vertical-align: middle;padding-right: 10px">
+                        <img width="60" height="60" class="about-author-img" id="about-author-img">
+                    </div>
+                    <div style="display: table-cell;vertical-align: middle">
+                        <div>
+                            <span class="about-author-name" id="about-author-name">
+                            </span>
+                        </div>
+                        <div class="about-author-description" id="about-author-description">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="question-right-info">
                 <div class="page-right-card-info-items">
