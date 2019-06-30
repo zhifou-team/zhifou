@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/public.css">
-    <link rel="stylesheet" href="/css/register_page.css">
+    <link rel="stylesheet" href="../static/css/public.css">
+    <link rel="stylesheet" href="../static/css/register_page.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>知否——有问题上知否</title>
 </head>
@@ -16,8 +16,12 @@
         <div  style="display: block" id="login_state">
             <div>
                 <div class="register-page-load-title">
-                    登陆知否
+                    <div style="padding-top: 20px">
+                        <img src="../static/img/QA.png" width="190" height="50" >
+                    </div>
+                    <div style="padding: 15px 0 20px 0">&nbsp;有问题, 就上知否</div>
                 </div>
+                <hr>
                 <div class="register-page-load-text">
                     <span style="color: #484848">没有账号？</span>
                     <div class="register-page-login" onclick="switch_state()">注册</div>
@@ -25,7 +29,7 @@
             </div>
             <form onsubmit="user_login();return false">
                 <div class="register-page-input-div">
-                    <input type="text" class="register-page-input" id="inputUserName_load" placeholder="用户名"/>
+                    <input type="text" class="register-page-input" id="inputUserName_load" placeholder="用户名/手机号"/>
                 </div>
                 <div class="register-page-input-div">
                     <input type="password" class="register-page-input" id="inputPassword_load" placeholder="密码">
@@ -38,27 +42,31 @@
         <div style="display: none" id="register_state">
             <div>
                 <div class="register-page-load-title">
-                    注册知否
+                    <div style="padding-top: 20px">
+                        <img src="../static/img/QA.png" width="190" height="50" >
+                    </div>
+                    <div style="padding: 15px 0 20px 0">&nbsp;有问题, 就上知否</div>
                 </div>
+                <hr>
                 <div class="register-page-load-text">
                     <span style="color: #484848">已有账号？</span>
                     <div class="register-page-login" onclick="switch_state()">登陆</div>
                 </div>
             </div>
             <form onsubmit="user_register();return false">
-                <div class="register-page-input-div">
-                    <input type="text" class="register-page-input" id="inputUserName" placeholder="用户名"/>
+                <div class="register-page-input-div2">
+                    <input type="text" class="register-page-input" id="inputUserName" placeholder="用户名(6-12位大小写字母或数字）"/>
                 </div>
-                <div class="register-page-input-div">
-                    <input type="text" class="register-page-input" id="inputNickName" placeholder="昵称" >
+                <div class="register-page-input-div2">
+                    <input type="text" class="register-page-input" id="inputNickName" placeholder="昵称(4-16位大小写字母、数字或汉字)" >
                 </div>
-                <div class="register-page-input-div">
-                    <input type="password" class="register-page-input" id="inputPassword" placeholder="密码">
+                <div class="register-page-input-div2">
+                    <input type="password" class="register-page-input" id="inputPassword" placeholder="密码(6-16位大小写字母或数字）">
                 </div>
-                <div class="register-page-input-div">
+                <div class="register-page-input-div2">
                     <input type="password" class="register-page-input" id="inputRepeatPassword" placeholder="请再次输入密码" >
                 </div>
-                <div class="register-page-input-div">
+                <div class="register-page-input-div2" style="padding-top: 20px">
                     <input type="submit" class="register-page-submit"  value="注册">
                 </div>
             </form>
@@ -66,9 +74,26 @@
     </div>
 </div>
 
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="position: fixed;top: 65px;height: 0;width: 100%">
+    <div class="toast" role="alert" id="alertModal" aria-live="assertive" aria-atomic="true" data-delay="3500" style="min-width: 250px;border-radius: 10px">
+        <div class="toast-header d-flex justify-content-between align-items-center" style="padding: 4px 20px">
+            <div class="d-inline-block bottom">
+                <img src="../static/img/QA.png" width="57" height="15px" class="rounded mr-2" alt="...">
+            </div>
+            <div class="d-inline-block align-middle">
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true" class="page-toast-close">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="toast-body page-toast-text" id="content">
+        </div>
+    </div>
+</div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script type="text/javascript" src="/script/register_page.js"></script>
+<script type="text/javascript" src="../static/script/register_page.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

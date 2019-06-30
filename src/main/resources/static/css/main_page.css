@@ -5,7 +5,7 @@
     padding: 15px 20px;
     border-radius: 15px;
     background-color: #ffffff;
-    box-shadow: 0 0 12px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.1);
 }
 
 .page-card-tips{
@@ -14,7 +14,7 @@
     padding: 15px 20px;
     border-radius: 15px;
     background-color: #ffffff;
-    box-shadow: 0 0 12px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.1);
 }
 
 .page-card-more{
@@ -26,7 +26,7 @@
 .page-card-title{
     font-size: 18px;
     font-weight: bold;
-    color: #484848;
+    color: #333;
     cursor: pointer;
 }
 
@@ -42,7 +42,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 15px;
-    color: #5b5b5b;
+    color: #333;
     cursor: pointer;
 }
 
@@ -68,18 +68,29 @@
 
 .page-card-bottom-reader{
     display: inline-block;
-    font-size: 14px;
-    color: #ff5c5c;
-    padding: 0 10px;
     margin-right: 10px;
-    border: 1px solid #ff5c5c;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #ff4c4c;
+    background-color: #ffecec;
     border-radius: 15px;
     cursor: pointer;
 }
 
 .page-card-bottom-reader:hover{
-    color: #ff8484;
-    border-color: #ff8484 ;
+    color: #ffffff;
+    background-color: #ff6c6c;
+}
+
+.page-card-bottom-reader-already{
+    display: inline-block;
+    margin-right: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #ff6c6c;
+    border-radius: 15px;
+    cursor: pointer;
 }
 
 .page-card-bottom-item{

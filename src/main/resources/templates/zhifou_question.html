@@ -7,28 +7,28 @@
     <meta name="referrer" content="no-referrer"/>
 
     <!--    使用iconfont-->
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1258904_bf6001s43ig.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1258904_85gbocda434.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/css/public.css">
-    <link rel="stylesheet" href="/css/question_page.css">
+    <link rel="stylesheet" href="../static/css/public.css">
+    <link rel="stylesheet" href="../static/css/question_page.css">
     <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>知否——有问题上知否</title>
 </head>
-<body onload="getAnswers('firstLoad')">
+<body onload="getAnswers('firstLoad')" id="body">
 <div>
     <nav class="navbar fixed-top">
         <div class="page-container-header">
             <div class="d-flex justify-content-between">
                 <div>
                     <div class="page-header-logo">
-                        <img src="../static/img/zhifou.png" width="140" height="40" alt="">
+                        <img src="../static/img/QA.png" id="QA-img" width="114" height="30" alt="">
                     </div>
 
-                    <div class="d-inline-block" style="vertical-align: top">
-                        <a href="zhifou_main.html" class="page-header-nav">
+                    <div class="d-inline-block" style="vertical-align: middle">
+                        <a href="zhifou_main.html" class="page-header-nav-top">
                             <div style="display: flex;align-items: center;height: 100%">
-                                <span style="color: #1f8dfb;font-size: 16px">首页</span>
+                                <span style="font-size: 16px">首页</span>
                             </div>
                         </a>
                         <a href="zhifou_discovery.html" class="page-header-nav">
@@ -51,18 +51,20 @@
                     </div>
                 </div>
                 <div>
-                    <div class="page-header-nav-button" onclick="displayWholeSearch()" id="pageHeaderSearch"
-                         style="color: #8590a6;border-top: 4px solid transparent;
-                                border-left: 1px solid transparent;border-right: 1px solid transparent;">
-                        <div style="display: flex;align-items: center;height: 100%">
-                            <div style="font-size: 16px">
-                                <span class="iconfont icon-sousuo"></span>
-                                <span>搜索</span>
+                    <div class="page-header-search-content">
+                        <div class="page-header-nav-search" >
+                            <div class="page-header-search-bg" id="search-bg">
+                                <div class="page-header-search-input">
+                                    <input type="text" class="search-input-content" onclick="displayWholeSearch('click')" id="search-input" onblur="displayWholeSearch('close')">
+                                    <div class="search-button" onclick="pageSearch()">
+                                        <span class="iconfont icon-sousuo" style="font-size: 18px"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="page-header-nav-button" data-toggle="modal" data-target="#questionModal"
-                         style="color: #8590a6;border-top: 4px solid transparent;
+                         style="border-top: 4px solid transparent;
                                 border-left: 1px solid transparent;border-right: 1px solid transparent;">
                         <div style="display: flex;align-items: center;height: 100%">
                             <div style="font-size: 16px">
@@ -71,15 +73,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="page-header-nav-button"
-                         style="color: #8590a6;border-top: 4px solid transparent;
+                    <div class="page-header-nav-button" onclick="displayHeaderTip('dark-night','pageHeaderDark')" id="pageHeaderDark"
+                         style="border-top: 4px solid transparent;
                      border-left: 1px solid transparent;border-right: 1px solid transparent;">
                         <div style="display: flex;align-items: center;height: 100%">
                             <span class="iconfont icon-moonbyueliang" style="font-size: 16px;padding-bottom: 2px"></span>
                         </div>
                     </div>
-                    <div class="page-header-nav-button" onclick="displayUser('personalInfo','pageHeaderInfo')" id="pageHeaderInfo"
-                         style="color: #8590a6;border-top: 4px solid transparent;
+                    <div class="page-header-nav-button" onclick="displayHeaderTip('personalInfo','pageHeaderInfo')" id="pageHeaderInfo"
+                         style="border-top: 4px solid transparent;
                      border-left: 1px solid transparent;border-right: 1px solid transparent;">
                         <div style="display: flex;align-items: center;height: 100%">
                             <span class="iconfont icon-yonghu2" style="font-size: 20px;padding-bottom: 2px"></span>
@@ -115,6 +117,37 @@
                                 <div class="d-inline-block align-middle">
                                     <span style="padding-left: 5px">退出</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-header-personalInfo" style="display: none" id="dark-night">
+                    <div style="padding-top: 10px;margin-top: -5px;margin-right: 10px">
+                        <div class="page-personalInfo" style="margin: 0 auto">
+                            <div class="page-dark-night-item">
+                                <div class="d-inline-block align-middle">
+                                    <span class="iconfont icon-moonbyueliang" style="font-size: 14px;line-height: 14px"></span>
+                                </div>
+                                <div class="d-inline-block align-middle">
+                                    <span style="padding-left: 5px;font-size: 14px">夜间模式</span>
+                                </div>
+                            </div>
+                            <div class="page-dark-night-item">
+                                <button type="button" class="dark-night-button" onclick="changeWebState('colorStyle','open')" style="width: 50%;border-radius: 20px 0 0 20px" id="open-dark">开</button>
+                                <button type="button" class="dark-night-button-press" onclick="changeWebState('colorStyle','close')" style="width: 50%;border-radius: 0 20px 20px 0" id="close-dark">关</button>
+                            </div>
+                            <hr style="margin: 10px 0!important;">
+                            <div class="page-dark-night-item">
+                                <div class="d-inline-block align-middle">
+                                    <span class="iconfont icon-ziti" style="font-size: 14px;line-height: 14px"></span>
+                                </div>
+                                <div class="d-inline-block align-middle">
+                                    <span style="padding-left: 5px;font-size: 14px">字体切换</span>
+                                </div>
+                            </div>
+                            <div class="page-dark-night-item">
+                                <button type="button" class="dark-night-button" onclick="changeWebState('fontStyle','songTi')" style="width: 50%;border-radius: 20px 0 0 20px" id="songTiButton">宋体</button>
+                                <button type="button" class="dark-night-button-press" onclick="changeWebState('fontStyle','heiTi')" style="width: 50%;border-radius: 0 20px 20px 0" id="heiTiButton">黑体</button>
                             </div>
                         </div>
                     </div>
@@ -177,13 +210,12 @@
                             <span class="question-follower">浏览量</span>
                         </div>
                         <div>
-                            <span class="question-follower-num" id="question-browser">123,111</span>
+                            <span class="question-follower-num" id="question-browser"></span>
                         </div>
                     </div>
 
                 </div>
             </div>
-
         </div>
     </div>
     <div class="question-columns">
@@ -192,11 +224,11 @@
         </div>
         <div id="right-columns" style="width: 230px;display: none">
             <div class="question-right-author">
-                <div class="about-author">
+                <div class="about-author-word">
                     <span style="font-size: 14px">关于作者</span>
                 </div>
                 <hr>
-                <div class="about-author-info" >
+                <div class="about-author-personalInfo" >
                     <div style="display: table-cell;vertical-align: middle;padding-right: 10px">
                         <img width="60" height="60" class="about-author-img" id="about-author-img">
                     </div>
@@ -209,66 +241,41 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="question-right-info">
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-tongzhi" style="line-height: 16px"></span>
-                    </div>
-                    <span style="padding-left: 5px">查看全部通知</span>
-                </div>
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-xiaoxi" style="line-height: 16px"></span>
-                    </div>
-                    <span style="padding-left: 5px">我的私信</span>
-                </div>
                 <hr>
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-reading" style="font-size: 18px;line-height: 18px"></span>
-                    </div>
-                    <span style="padding-left: 5px">我的在看</span>
-                </div>
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-shoucang" style="font-size: 18px;line-height: 18px"></span>
-                    </div>
-                    <div class="d-inline-block align-middle">
-                        <span style="padding-left: 5px">我收藏的问题</span>
-                    </div>
-                </div>
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-fenxiang" style="font-size: 18px;line-height: 18px"></span>
-                    </div>
-                    <div class="d-inline-block align-middle">
-                        <span style="padding-left: 5px">我的分享</span>
-                    </div>
-                </div>
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-pinglun" style="line-height: 16px"></span>
-                    </div>
-                    <div class="d-inline-block align-middle">
-                        <span style="padding-left: 5px">我的评论</span>
+                <div class="about-author-info">
+                    <div style="display: table;margin: 0 auto">
+                        <div class="author-zhifou-info" style="padding-right: 8px">
+                            <div>
+                                <span>回答</span>
+                            </div>
+                            <div>
+                                <span class="author-zhifou-info-num">55</span>
+                            </div>
+                        </div>
+                        <div class="author-zhifou-info" style="padding-left: 8px;padding-right: 8px">
+                            <div>
+                                <span>文章</span>
+                            </div>
+                            <div>
+                                <span class="author-zhifou-info-num">80</span>
+                            </div>
+                        </div>
+                        <div class="author-zhifou-info" style="padding-left: 8px">
+                            <div>
+                                <span>粉丝</span>
+                            </div>
+                            <div>
+                                <span class="author-zhifou-info-num">12312124</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-lishijilu" style="line-height: 16px"></span>
-                    </div>
-                    <div class="d-inline-block align-middle">
-                        <span style="padding-left: 5px">我的足迹</span>
-                    </div>
-                </div>
-                <div class="page-right-card-info-items">
-                    <div class="d-inline-block align-middle">
-                        <span class="iconfont icon-sousuo" style="line-height: 16px"></span>
-                    </div>
-                    <div class="d-inline-block align-middle">
-                        <span style="padding-left: 5px">我的搜索历史</span>
+                <div class="about-author-bottom">
+                    <div class="about-author-bottom-focus">+关注他</div>
+                    <div class="about-author-bottom-button">进入他的主页</div>
+                    <div class="about-author-bottom-button">
+                        <span class="iconfont icon-xiaoxi" style="line-height: 14px"></span>
+                        <span>发私信</span>
                     </div>
                 </div>
             </div>
@@ -304,25 +311,82 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header" style="padding: 15px 35px">
-                <h5 class="modal-title" style="color: #1f8dfb">知否——有问题上知否</h5>
+                <div class="create-question-header">
+                    <div class="d-inline-block align-bottom">
+                        <img src="../static/img/QA.png" width="95" height="25px" class="rounded mr-2" alt="...">
+                    </div>
+                    <div class="d-inline-block align-middle">
+                        <span class="create-question-title">——有问题，就上知否</span>
+                    </div>
+                </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="outline: none">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div>
-                    <textarea rows="4" class="question-input" maxlength="50" placeholder="写下你的问题，准确地描述问题更容易得到解答:"></textarea>
+                <div style="padding:10px">
+                    <textarea rows="2" class="question-input" id="create-question-title" maxlength="50" placeholder="写下你的问题，准确地描述问题更容易得到解答:"></textarea>
+                </div>
+                <div style="padding:10px">
+                    <textarea rows="4" class="question-input" id="create-question-description" maxlength="160" placeholder="输入问题背景、条件等详细信息（选填）"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="button" class="question-submit" onclick="questionSubmit()" value="提交">
+                <input type="button" class="question-submit" onclick="questionCreate()" value="提交">
             </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript" src="/script/public.js"></script>
-<script type="text/javascript" src="/script/question_page.js"></script>
+<!--评论的控件-->
+<div class="modal fade" id="displayComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable comment-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <div class="d-inline-block align-middle">
+                        <span id="commentNumber"></span><span>条评论</span>
+                    </div>
+                    <div class="d-inline-block align-middle">
+                        <button type="button" class="comment-sort">
+                            <span class="iconfont icon-paixuti-normal"></span><span>&nbsp;切换为按时间排序</span>
+                        </button>
+                    </div>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 0!important;padding-bottom: 0!important;" id="modal-body">
+                <div id="insertComments"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="position: fixed;top: 65px;height: 0;width: 100%;z-index: 9999">
+    <div class="toast" role="alert" id="alertModal" aria-live="assertive" aria-atomic="true" data-delay="3500" style="min-width: 250px;border-radius: 10px">
+        <div class="toast-header d-flex justify-content-between align-items-center" style="padding: 4px 20px">
+            <div class="d-inline-block bottom">
+                <img src="../static/img/QA.png" width="57" height="15px" class="rounded mr-2" alt="...">
+            </div>
+            <div class="d-inline-block align-middle">
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true" class="page-toast-close">&times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="toast-body page-toast-text" id="content">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../static/script/public.js"></script>
+<script type="text/javascript" src="../static/script/question_page.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="//code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

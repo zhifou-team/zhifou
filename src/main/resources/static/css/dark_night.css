@@ -1,0 +1,43 @@
+body{
+    background-color: #333333 !important;
+}
+
+nav{
+    background-color: #333333 !important;
+}
+
+.page-container-header{
+    background-color: #333333 !important;
+}
+
+.page-header-nav-top{
+    color: #c8c8c8 !important;
+    font-weight: normal!important;
+}
+
+.page-header-nav-top:hover{
+    color: #ff5c5c !important;
+    border-top: 4px solid #ff5c5c !important;
+}
+
+.page-header-nav{
+     color: #989898 !important;
+ }
+
+.page-header-nav-button{
+    color: #989898 !important;
+}
+
+.page-header-nav:hover{
+    color: #ff5c5c !important;
+    border-top: 4px solid #ff5c5c !important;
+    border-left: 1px solid transparent !important;
+    border-right: 1px solid transparent !important;
+}
+
+.page-header-nav-button:hover{
+    color: #ff5c5c!important;
+    border-top: 4px solid #ff5c5c!important;
+    border-left: 1px solid transparent!important;
+    border-right: 1px solid transparent!important;
+}

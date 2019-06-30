@@ -22,11 +22,15 @@ function getInformation(type) {
 
     if (type === "firstLoad"){
 
+        //换头像
+
         notifyOperation("navBarChange","nav_recommend");
 
-        fetch(baseURL+'/answer').then(response =>{
+        fetch(
+            " http://localhost:5050/answer"
+            // baseURL+'/answer/extraction'
+        ).then(response =>{
             if(response.ok){
-                console.log("请求问题列表成功！");
                 return response.json();
             }
         }).then( res=>{
@@ -52,7 +56,7 @@ function getInformation(type) {
             document.getElementById("pageRightPart").style.display = "block";
 
         }).catch(function(e){
-            alert("error:" + e);
+            zhiFouAlert("error:" + e);
         });
 
     } else if (type === "moreLoad"){
@@ -68,7 +72,7 @@ function getInformation(type) {
             //对显示数量及数据是否为空进行判断限制
             displayQuestionsToHTML(questionList);
         }).catch(function(e){
-            alert("error:" + e);
+            zhiFouAlert("error:" + e);
         });
     }
 }

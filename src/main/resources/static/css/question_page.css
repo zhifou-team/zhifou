@@ -2,8 +2,12 @@ hr{
     margin:0 !important;
 }
 
+.container-fluid{
+    background-color: #ffffff;
+}
+
 .question-container{
-    box-shadow: 0 0 12px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.1);
 }
 
 .question-info{
@@ -68,32 +72,25 @@ hr{
     padding: 20px 15px 15px 20px;
 }
 
-.question-right-info{
-    height: 350px;
-    margin-top: 15px;
-    padding: 10px 25px;
-    border-radius: 15px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.15);
-}
-
 .question-right-author{
+    position: sticky;
+    top: 82px;
     padding: 10px 25px;
     border-radius: 15px;
     color: #1a1a1a;
     background-color: #ffffff;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
 }
 
-.about-author{
+.about-author-word{
     padding-top: 5px;
     padding-bottom: 15px;
 }
 
-.about-author-info{
+.about-author-personalInfo{
     display: table;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .about-author-img{
@@ -108,22 +105,84 @@ hr{
 }
 
 .about-author-description{
-    height: 45px;
+    height: 65px;
     white-space: normal;
     word-wrap: break-word;
     word-break: break-all;
+    overflow: hidden;
     font-size: 14px;
     padding-bottom: 5px;
 }
 
+.about-author-info{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.author-zhifou-info{
+    display: table-cell;
+    text-align: center;
+    font-size: 14px;
+    color: #8590a6;
+}
+
+.author-zhifou-info-num{
+    font-size: 18px;
+    color: #ff5c5c;
+}
+
+.about-author-bottom{
+    margin: 0 auto;
+    padding-top: 5px;
+}
+
+.about-author-bottom-focus{
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 15px;
+    padding: 5px 20px 5px 20px;
+    color: #ffffff;
+    background-color: #ff5c5c;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.about-author-bottom-focus:hover{
+    color: #ffffff;
+    background-color: #ff4c4c;
+}
+
+.about-author-bottom-button{
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 15px;
+    padding: 5px 20px 5px 20px;
+    color: #ff5c5c;
+    border: 1px solid #ff5c5c;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.about-author-bottom-button:hover{
+    background-color: #ffecec;
+}
+
 .answer-card{
+    position: relative;
     width: 680px;
     margin-bottom: 16px;
-    padding: 15px 20px;
+    padding: 15px 20px 0 20px;
     color: #1a1a1a;
     border-radius: 15px;
     background-color: #ffffff;
-    box-shadow: 0 0 12px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.1);
+}
+
+.answer-top{
+    position: absolute;
+    top: -77px;
 }
 
 .answer-card-author{
@@ -148,8 +207,13 @@ hr{
 }
 
 .author-description{
+    max-width: 500px;
     font-size: 14px;
     color: #5b5b5b;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break:break-all;
 }
 
 .answer-star{
@@ -187,28 +251,43 @@ hr{
 
 .answer-time{
     padding-top: 5px;
+    padding-bottom: 5px;
     font-size: 14px;
     color: #8590a6;
 }
 
 .question-card-bottom{
+    background-color: #ffffff;
     padding-top: 10px;
+    padding-bottom: 15px;
+    border-top: 1px solid #dddddd;
 }
 
 .page-card-bottom-reader{
     display: inline-block;
-    font-size: 14px;
-    color: #ff5c5c;
-    padding: 0 10px;
     margin-right: 10px;
-    border: 1px solid #ff5c5c;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #ff4c4c;
+    background-color: #ffecec;
     border-radius: 15px;
     cursor: pointer;
 }
 
 .page-card-bottom-reader:hover{
-    color: #ff8484;
-    border-color: #ff8484 ;
+    color: #ffffff;
+    background-color: #ff6c6c;
+}
+
+.page-card-bottom-reader-already{
+    display: inline-block;
+    margin-right: 10px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #ff6c6c;
+    border-radius: 15px;
+    cursor: pointer;
 }
 
 .page-card-bottom-item{
@@ -261,7 +340,7 @@ hr{
     cursor: pointer;
     border-radius: 15px;
     background-color: #ffffff;
-    box-shadow: 0 0 12px 0 rgba(0,0,0,0.15);
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.1);
 }
 
 .answer-card-more{

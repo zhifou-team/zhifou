@@ -1,5 +1,11 @@
 let registerURL = 'http://localhost:8080/user';
 
+let infoTest = {
+    userNameTest: /^[a-zA-Z0-9]{6,12}$/,
+    nickNameTest: /^[\u4E00-\u9FA5A-Za-z0-9]{4,16}$/,
+    passwordTest: /^[a-zA-Z0-9]{6,16}$/
+};
+
 function user_register() {
     let userName = document.getElementById('inputUserName').value;
     let nickName = document.getElementById('inputNickName').value;
@@ -14,10 +20,18 @@ function user_register() {
 
     console.log(register_info);
 
+
+
     if(userName === ""||nickName === ""||password === ""||repeatPassword===""){
-        alert("请输入完整!");
-    }else if(password!==repeatPassword){
-        alert("两次输入密码不一致！");
+        zhiFouAlert("请输入完整!");
+    }else if(!infoTest.nickNameTest.test(userName)) {
+        zhiFouAlert("用户名格式有误！");
+    }else if(!infoTest.nickNameTest.test(nickName)){
+        zhiFouAlert("昵称格式有误！");
+    } else if(!infoTest.nickNameTest.test(password)){
+        zhiFouAlert("密码格式有误！");
+    } else if(password !== repeatPassword) {
+        zhiFouAlert("两次输入密码不一致！");
     }else{
         fetch(registerURL+"/register/load",{
             method: 'POST',
@@ -27,32 +41,19 @@ function user_register() {
             body:JSON.stringify(register_info)
         }).then(response =>{
             if(response.ok){
-                console.log("请求成功");
                 return response.text();
             }
         }).then(data => {
             if(data === "success"){
-                alert("注册成功！");
+                zhiFouAlert("注册成功！");
                 location.href="register";
             }else if(data === "failed"){
-                alert("该用户命已存在！注册失败");
+                zhiFouAlert("该用户命已存在！注册失败");
                 return false;
             }
         }).catch(function(e){
-            alert("error:" + e);
+            zhiFouAlert("error:" + e);
         });
-    }
-}
-
-function switch_state() {
-    let register_part = document.getElementById("register_state");
-    let login_state = document.getElementById("login_state");
-    if (register_part.style.display === "block"){
-        register_part.style.display = "none";
-        login_state.style.display = "block";
-    }else{
-        register_part.style.display = "block";
-        login_state.style.display = "none";
     }
 }
 
@@ -68,9 +69,13 @@ function user_login() {
     console.log(login_info);
 
     if( userName === "" || password === ""){
-        alert("请输入完整!");
+        zhiFouAlert("请输入完整!");
         //需要另外对字符串键入匹配
-    }else{
+    } else if(!infoTest.nickNameTest.test(userName)){
+        zhiFouAlert("用户名格式有误！");
+    } else if(!infoTest.nickNameTest.test(password)) {
+        zhiFouAlert("密码格式有误！");
+    } else{
         fetch(registerURL+"/login",{
             method: 'POST',
             headers:{
@@ -86,11 +91,29 @@ function user_login() {
             if(data === "success"){
                 location.href="main";
             }else if(data === "failed"){
-                alert("该用户命不存在或者密码输入错误！");
+                zhiFouAlert("该用户命不存在或者密码输入错误！");
                 return false;
             }
         }).catch(function(e){
-            alert("error:" + e);
+            zhiFouAlert("error:" + e);
         });
     }
+}
+
+
+function switch_state() {
+    let register_part = document.getElementById("register_state");
+    let login_state = document.getElementById("login_state");
+    if (register_part.style.display === "block"){
+        register_part.style.display = "none";
+        login_state.style.display = "block";
+    }else{
+        register_part.style.display = "block";
+        login_state.style.display = "none";
+    }
+}
+
+function zhiFouAlert(text) {
+    document.getElementById("content").innerText = text;
+    $('#alertModal').toast('show');
 }

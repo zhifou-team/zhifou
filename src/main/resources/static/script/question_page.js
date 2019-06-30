@@ -1,9 +1,9 @@
-let answerId;
+let UrlAnswerId;
 
 //将页面URL转化为answerId
 function getID(){
     let thisURL = window.location.href;
-    answerId = (thisURL.split("?")[1]).split("=")[1];
+    UrlAnswerId = (thisURL.split("?")[1]).split("=")[1];
 }
 getID();
 
@@ -13,6 +13,7 @@ function displayAnswers(answers){
     answers.forEach(data =>{
         htmlAnswersString += `
             <div class="answer-card">
+                    <a class="answer-top" id="answer-top${data.answerId}"></a>
                     <div class="answer-card-author">
                         <div style="display: inline-block;vertical-align: middle">
                             <img src="${data.userImageUrl}" width="48" height="48" class="answer-card-author-img">
@@ -36,8 +37,8 @@ function displayAnswers(answers){
                             </div>
                         </div>
                     </div>
-                    <div class="answer-time">最近编辑于 2019-06-24</div>
-                    <div class="question-card-bottom">
+                    <div class="answer-time">${data.updateTime}</div>
+                    <div class="question-card-bottom" style="position: relative;bottom: 0" id="question-card-bottom${data.answerId}">
                         <div class="page-card-bottom-reader" style="display: inline-block" onclick="cardOperation('upQuestionLooking',${data.answerId})" id="upQuestionLooking${data.answerId}">
                             <div class="d-inline-block align-middle">
                                 <span class="iconfont icon-reading" style="font-size: 18px;line-height: 22px"></span>
@@ -46,7 +47,7 @@ function displayAnswers(answers){
                                 <span>在看&nbsp</span><span id="isLooking${data.answerId}">${data.answerStar}</span>
                             </div>
                         </div>
-                        <div class="page-card-bottom-reader" style="display: none" onclick="cardOperation('downQuestionLooking',${data.answerId})" id="downQuestionLooking${data.answerId}">
+                        <div class="page-card-bottom-reader-already" style="display: none" onclick="cardOperation('downQuestionLooking',${data.answerId})" id="downQuestionLooking${data.answerId}">
                             <div class="d-inline-block align-middle">
                                 <span class="iconfont icon-reading" style="font-size: 18px;line-height: 22px"></span>
                             </div>
@@ -54,18 +55,17 @@ function displayAnswers(answers){
                                 <span>已在看</span><span id="haveLooked${data.answerId}">${data.answerStar}</span>
                             </div>
                         </div>
-                        <div class="page-card-bottom-item" onclick="cardOperation('displayComments',${data.answerId})">
+                        <div class="page-card-bottom-item" onclick="cardOperation('displayComment',${data.answerId})" data-toggle="modal" data-target="#displayComment">
                             <div class="d-inline-block align-middle">
-                                <span class="iconfont icon-pinglun" style="line-height: 16px"></span>
+                                <span class="iconfont icon-pinglun" style="line-height: 22px"></span>
                             </div>
                             <div class="d-inline-block align-middle">
-                                <span style="display: inline-block" id="downComment${data.answerId}">${data.comment} 条评论</span>
-                                <span style="display: none" id="UpComment${data.answerId}">收起评论</span>
+                                <span>${data.commentNumber} 条评论</span>
                             </div>
                         </div>
                         <div class="page-card-bottom-item" onclick="cardOperation('shareQuestion',${data.answerId})">
                             <div class="d-inline-block align-middle">
-                                <span class="iconfont icon-fenxiang" style="font-size: 18px;line-height: 18px"></span>
+                                <span class="iconfont icon-fenxiang" style="font-size: 18px;line-height: 22px"></span>
                             </div>
                             <div class="d-inline-block align-middle">
                                 <span style="display: inline-block" id="shareQuestion${data.answerId}">分享</span>
@@ -74,7 +74,7 @@ function displayAnswers(answers){
                         </div>
                         <div class="page-card-bottom-item" onclick="cardOperation('storeQuestion',${data.answerId})">
                             <div class="d-inline-block align-middle">
-                                <span class="iconfont icon-shoucang" style="font-size: 18px;line-height: 18px"></span>
+                                <span class="iconfont icon-shoucang" style="font-size: 18px;line-height: 22px"></span>
                             </div>
                             <div class="d-inline-block align-middle">
                                 <span style="display: inline-block" id="storeQuestion${data.answerId}">收藏</span>
@@ -83,7 +83,7 @@ function displayAnswers(answers){
                         </div>
                         <div class="page-card-bottom-pickup-answer" style="display: none" onclick="answerOpeartion('pickUpAnswer',${data.answerId})" id="pickUp-answer${data.answerId}">
                             <div>
-                                <span>收起全文 </span><span class="iconfont icon-shang"></span>
+                                <a href="#answer-top${data.answerId}"><span>收起全文 </span><span class="iconfont icon-shang"></span></a>
                             </div>
                         </div>
                     </div>
@@ -117,18 +117,25 @@ function getAnswers(type) {
 
     if(type === "firstLoad"){
 
-        //获取当前id answer的question 和answer 信息
-        fetch(baseURL+"/content",{
+        let firstRequest = {
+            answerId : UrlAnswerId,
+            count : 0
+        };
 
+        //获取当前id answer的question 和answer 信息
+        fetch(
+            // baseURL+"/content",
+            baseURL+"/question/full",
+            {
             method:'post',
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                'content-type': 'application/json'
             },
-            body:"answerId="+answerId
+            body:JSON.stringify(firstRequest)
 
-        }).then(response=>{
+        }
+        ).then(response=>{
             if (response.ok){
-                console.log("问题页面请求成功！");
                 return response.json();
             }
         }).then(res=>{
@@ -137,12 +144,12 @@ function getAnswers(type) {
             document.getElementById("question-title").innerText = res.data.questionTitle;
             document.getElementById("question-description").innerText = res.data.questionDescription;
             document.getElementById("question-followers").innerText = res.data.questionFollowers;
+            document.getElementById("question-browser").innerText = res.data.questionBrowsers;
             document.getElementById("question-container").style.display = "block";
 
             document.getElementById("about-author-img").src = res.data.answerInfoList[0].userImageUrl;
-            document.getElementById("about-author-name").src = res.data.answerInfoList[0].userNickname;
-            document.getElementById("about-author-description").src = res.data.answerInfoList[0].userDescription;
-
+            document.getElementById("about-author-name").innerText = res.data.answerInfoList[0].userNickname;
+            document.getElementById("about-author-description").innerText = res.data.answerInfoList[0].userDescription;
 
 
             let answerList;
@@ -151,44 +158,65 @@ function getAnswers(type) {
             displayAnswers(answerList);
             //display之后对answerDescription的长度进行判断
 
-            judgeAnswerHeight(document.querySelectorAll(".description-content"));
             //插入更多问题
             insertMoreAnswer();
             //cards插入完成后，显示导航栏下方右侧部分
             document.getElementById("right-columns").style.display = "block";
 
+        }).then(()=>{
+
+            //将querySelectorAll选择出的nodelist转化为数组
+            let contents = Array.prototype.slice.call(document.querySelectorAll(".description-content"));
+            judgeAnswerHeight(contents);
+
         }).catch(function(e){
-            alert("error:" + e);
+            zhiFouAlert("error:" + e);
         });
 
     }else if (type === "moreLoad"){
 
-        let answerNum;
-        answerNum = document.querySelectorAll(".answer-card-container").length;
+        let answerNum = document.querySelectorAll(".answer-card").length;
+
+        let moreRequest = {
+            answerId : UrlAnswerId,
+            count : answerNum
+        };
 
         //获取当前id answer的question 和answer 信息
         fetch(baseURL+"/question/full",{
             method:'post',
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                'content-type': 'application/json'
             },
-            body:"answerId="+answerId+"count="+answerNum
+            body:JSON.stringify(moreRequest)
         }).then(response=>{
             if (response.ok){
-                console.log("问题页面请求成功！");
                 return response.json();
             }
         }).then(res=>{
 
-            let answerList;
-            answerList = res.data.answerInfoList;
-            //对显示数量及数据是否为空进行判断限制
-            displayAnswers(answerList);
-            //对新插入的问题数组进行判断 ; slice用于返回后 10 个数据
-            judgeAnswerHeight(document.querySelectorAll(".description-content").slice(-10));
+            let answerList = res.data.answerInfoList;
+            let newCocntentNum = answerList.length;
+            if (newCocntentNum !== 0){
+                //对显示数量及数据是否为空进行判断限制
+                displayAnswers(answerList);
+
+            } else if( newCocntentNum === 0){
+
+                document.getElementById("answer-card-more").innerText = "我已经到底了噢";
+                zhiFouAlert("没有更多回答了");
+
+            }
+            return newCocntentNum;
+
+        }).then(num=>{
+
+            //将querySelectorAll选择出的nodelist转化为数组; 在刷出来之后判断；
+            let moreContents = Array.prototype.slice.call(document.querySelectorAll(".description-content"),-num);
+            judgeAnswerHeight(moreContents);
 
         }).catch(function(e){
-            alert("error:" + e);
+            zhiFouAlert("error:" + e);
         });
     }
 }
@@ -198,10 +226,14 @@ function answerOpeartion(type,answerId) {
         document.getElementById("answer-shadow"+answerId).style.display = "none";
         document.getElementById("answer-description"+answerId).style.height = "auto";
         document.getElementById("pickUp-answer"+answerId).style.display = "inline-block";
+
+        document.getElementById("question-card-bottom"+answerId).style.position = "sticky";
     } else if (type === "pickUpAnswer") {
         document.getElementById("pickUp-answer"+answerId).style.display = "none";
         document.getElementById("answer-description"+answerId).style.height = "450px";
         document.getElementById("answer-shadow"+answerId).style.display = "block";
+
+        document.getElementById("question-card-bottom"+answerId).style.position = "relative";
     }
 }
 
@@ -213,7 +245,7 @@ function insertMoreAnswer() {
     let htmlReadMoreHTML;
     htmlReadMoreHTML = `
                 <div class="question-card-tips" onclick="getAnswers('moreLoad')" id="pageCardMore">
-                        <div class="answer-card-more">
+                        <div class="answer-card-more" id="answer-card-more">
                             <span>点击查看更多回答</span>
                             <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </div>
@@ -221,5 +253,4 @@ function insertMoreAnswer() {
             `;
     moreAnswer.innerHTML = htmlReadMoreHTML;
     insertDiv.parentNode.insertBefore(moreAnswer,insertDiv.nextSibling);
-    console.log("插入更多答案成功");
 }
